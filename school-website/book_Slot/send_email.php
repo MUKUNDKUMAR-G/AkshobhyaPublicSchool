@@ -1,21 +1,38 @@
 <?php
-// Retrieve form data
-$name = $_POST['name'];
-$email = $_POST['email'];
-$class = $_POST['class'];
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Validate and sanitize input
+    $name = trim($_POST["name"]);
+    $email = filter_var($_POST["email"], FILTER_SANITIZE_EMAIL);
+    $selectedClass = $_POST["class"];
 
-// Email details
-$to = "naveenani2005@gmail.com"; // Enter your email address here
-$subject = "New Booking";
-$message = "Name: $name\n";
-$message .= "Email: $email\n";
-$message .= "Class: $class\n";
+    // Validate name (non-empty)
+    if (empty($name)) {
+        echo "Please provide a valid name.";
+        exit;
+    }
 
-// Send email
-$headers = "From: $name <$email>";
-if (mail($to, $subject, $message, $headers)) {
-    echo json_encode(array("success" => true));
-} else {
-    echo json_encode(array("success" => false));
+    // Validate email (valid format)
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo "Please provide a valid email address.";
+        exit;
+    }
+
+    // Validate class (not empty and not the default value)
+    if (empty($selectedClass) || $selectedClass === "Select A Class") {
+        echo "Please select a valid class.";
+        exit;
+    }
+
+    // Send email (you can customize this part)
+    $to = "naveenani2005@gmail.com";
+    $subject = "New Booking Request";
+    $message = "Name: $name\nEmail: $email\nClass: $selectedClass";
+
+    mail($to, $subject, $message);
+
+    // Display a custom thank-you message
+    echo "<h2>Thank you for your booking request, $name!</h2>";
 }
 ?>
+
+
