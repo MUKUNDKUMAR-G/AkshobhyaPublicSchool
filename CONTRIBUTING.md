@@ -8,7 +8,7 @@ Thank you for considering contributing to our School Website. We appreciate your
 
 2. **Clone the Repository:** Clone the forked repository to your local machine using the following command:
 
-git clone [https://github.com/yourusername/school-website.git](https://github.com/MUKUNDKUMAR-G/AkshobhyaPublicSchool.git)
+git clone https://github.com/MUKUNDKUMAR-G/AkshobhyaPublicSchool.git
 
 3. **Create a Branch:** Create a new branch for your contribution:
 
