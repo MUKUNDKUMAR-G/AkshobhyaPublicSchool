@@ -9,7 +9,7 @@ Welcome to our School Website! This website serves as a central hub for informat
 - Get to know our faculty and staff members.
 
 ### Booking
-- Book slots for events, parent-teacher meetings, or facility tours.
+- Book slot for our kids.
 - Check availability and schedule your visit conveniently.
 
 ### Contact
