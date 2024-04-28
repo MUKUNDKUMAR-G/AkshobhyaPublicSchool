@@ -119,12 +119,12 @@
                 <div id="success"></div>
                 <form
                   action="https://formspree.io/f/xdoqboak"
-                  method="POST">
-                  <form name="sentMessage"
+                  method="POST"
+                  name="sentMessage"
                   class="contactForm"
                   id="contactForm"
-                  novalidate="novalidate">
-                
+                  novalidate="novalidate"
+                >
                   <div class="control-group">
                     <input
                       type="text"
@@ -168,7 +168,9 @@
                       data-validation-required-message="Please enter your message"
                       data-validation-minlength-message="Please enter at least {minlength} characters"
                       minlength="40"
-                    ></textarea>
+                    >
+                  ></textarea
+                    >
                     <p class="help-block text-danger"></p>
                   </div>
                   <div>
@@ -180,7 +182,6 @@
                       Send Message
                     </button>
                   </div>
-                </form>
                 </form>
               </div>
             </div>
