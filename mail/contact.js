@@ -1,65 +1,78 @@
-$(function () {
+$(document).ready(function () {
+  // Validate and submit the form
+  $("#contactForm").submit(function (event) {
+    // Prevent the form from submitting by default
+    event.preventDefault();
 
-    $("#contactForm input, #contactForm textarea").jqBootstrapValidation({
-        preventSubmit: true,
-        submitError: function ($form, event, errors) {
+    // Get the form data
+    var formData = $(this).serialize();
+
+    // Perform client-side validation
+    if (validateForm()) {
+      // Send the form data to the server
+      $.ajax({
+        url: $(this).attr("action"),
+        type: "POST",
+        data: formData,
+        success: function (response) {
+          // Handle successful form submission
+          console.log("Form submitted successfully:", response);
+          // Optionally, display a success message to the user
         },
-        submitSuccess: function ($form, event) {
-            event.preventDefault();
-            var name = $("input#name").val();
-            var email = $("input#email").val();
-            var subject = $("input#subject").val();
-            var message = $("textarea#message").val();
-
-            $this = $("#sendMessageButton");
-            $this.prop("disabled", true);
-
-            $.ajax({
-                url: "contact.php",
-                type: "POST",
-                data: {
-                    name: name,
-                    email: email,
-                    subject: subject,
-                    message: message
-                },
-                cache: false,
-                success: function () {
-                    $('#success').html("<div class='alert alert-success'>");
-                    $('#success > .alert-success').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
-                            .append("</button>");
-                    $('#success > .alert-success')
-                            .append("<strong>Your message has been sent. </strong>");
-                    $('#success > .alert-success')
-                            .append('</div>');
-                    $('#contactForm').trigger("reset");
-                },
-                error: function () {
-                    $('#success').html("<div class='alert alert-danger'>");
-                    $('#success > .alert-danger').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
-                            .append("</button>");
-                    $('#success > .alert-danger').append($("<strong>").text("Sorry " + name + ", it seems that our mail server is not responding. Please try again later!"));
-                    $('#success > .alert-danger').append('</div>');
-                    $('#contactForm').trigger("reset");
-                },
-                complete: function () {
-                    setTimeout(function () {
-                        $this.prop("disabled", false);
-                    }, 1000);
-                }
-            });
+        error: function (xhr, status, error) {
+          // Handle errors during form submission
+          console.error("Error submitting form:", error);
+          // Optionally, display an error message to the user
         },
-        filter: function () {
-            return $(this).is(":visible");
-        },
-    });
+      });
+    }
+  });
 
-    $("a[data-toggle=\"tab\"]").click(function (e) {
-        e.preventDefault();
-        $(this).tab("show");
-    });
-});
+  // Client-side form validation
+  function validateForm() {
+    var valid = true;
 
-$('#name').focus(function () {
-    $('#success').html('');
+    // Reset validation messages
+    $("#contactForm .help-block").text("");
+
+    // Validate name field
+    var name = $("#name").val();
+    if (!name) {
+      $("#name").next(".help-block").text("Please enter your name");
+      valid = false;
+    }
+
+    // Validate email field
+    var email = $("#email").val();
+    if (!email || !isValidEmail(email)) {
+      $("#email")
+        .next(".help-block")
+        .text("Please enter a valid email address");
+      valid = false;
+    }
+
+    // Validate subject field
+    var subject = $("#subject").val();
+    if (!subject) {
+      $("#subject").next(".help-block").text("Please enter a subject");
+      valid = false;
+    }
+
+    // Validate message field
+    var message = $("#message").val();
+    if (!message || message.length < 10) {
+      $("#message")
+        .next(".help-block")
+        .text("Please enter a message with at least 10 characters");
+      valid = false;
+    }
+
+    return valid;
+  }
+
+  // Helper function to validate email format
+  function isValidEmail(email) {
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
 });
