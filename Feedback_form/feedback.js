@@ -22,11 +22,11 @@ $(document).ready(function () {
         // Reset form
         $("#feedback-form")[0].reset();
       },
-      error: function (xhr, status, error) {
+      /*error: function (xhr, status, error) {
         // Handle errors
         console.error(xhr.responseText);
         alert("Error submitting feedback. Please try again later.");
-      },
+      },*/
     });
   });
 });
