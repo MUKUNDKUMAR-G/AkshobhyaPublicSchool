@@ -65,6 +65,7 @@ body {
   color: #666666;
   text-align: left;
   background-color: #fff;
+  overflow-x: hidden;
 }
 
 .logo {
