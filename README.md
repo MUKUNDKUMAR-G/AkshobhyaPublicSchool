@@ -1,7 +1,3 @@
-Got it! Let’s add **subtle and meaningful emojis** to make the `README.md` more engaging while maintaining a professional tone. Here's the updated version:
-
----
-
 # 🏫 Akshobhya Public School & PU College Website
 
 Welcome to the official website of **Akshobhya Public School & PU College**! 🌐 This platform is designed to provide students, parents, and visitors with easy access to information about our school, programs, and activities. Explore our features to learn more about admissions, testimonials, and how to get in touch with us.
